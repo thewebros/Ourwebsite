@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Webros — Digital Experiences</title>
+  <meta name="description" content="The Webros builds modern websites, Google Business Profiles and social media marketing solutions.">
+
+  <style>
+    :root {
+      --bg: #050507;
+      --text: #f5f7fb;
+      --muted: #9da3b2;
+      --line: rgba(255,255,255,.12);
+      --purple: #7c5cff;
+      --cyan: #22d3ee;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at 75% 15%, rgba(124,92,255,.16), transparent 28%),
+        radial-gradient(circle at 15% 70%, rgba(34,211,238,.07), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1180px, calc(100% - 40px));
+      z-index: 100;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(8,8,12,.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #c9cdd7;
+      font-size: 13px;
+      font-weight: 600;
+      transition: color .25s ease;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 30px;
+      padding-top: 110px;
+    }
+
+    .eyebrow {
+      color: #b8b0ff;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      font-size: clamp(52px, 7vw, 92px);
+      line-height: .92;
+      letter-spacing: -.065em;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, #9c8cff, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 590px;
+      margin-top: 26px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 13px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 800;
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: #fff;
+      color: #050507;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.04);
+      color: #fff;
+    }
+
+    /* THREE.JS VISUAL */
+    .visual {
+      position: relative;
+      min-height: 560px;
+      width: 100%;
+    }
+
+    #hero-3d {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
+    }
+
+    #hero-3d canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .visual-label {
+      position: absolute;
+      z-index: 2;
+      right: 6%;
+      bottom: 38px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(10,10,15,.72);
+      backdrop-filter: blur(14px);
+      color: #d7d9e2;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      pointer-events: none;
+    }
+
+    /* SERVICES */
+    section { padding: 110px 0; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 35px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: -.05em;
+      line-height: 1;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .service-card {
+      min-height: 330px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s ease, border-color .3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    .number {
+      color: #7d8493;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .15em;
+    }
+
+    .service-card h3 {
+      margin-top: 80px;
+      font-size: 28px;
+      letter-spacing: -.04em;
+    }
+
+    .service-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .card-arrow {
+      position: absolute;
+      right: 24px;
+      bottom: 22px;
+      font-size: 22px;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 90px 20px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(124,92,255,.18), transparent 45%),
+        rgba(255,255,255,.025);
+    }
+
+    .cta h2 {
+      font-size: clamp(40px, 7vw, 78px);
+      letter-spacing: -.06em;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin: 18px auto 28px;
+      max-width: 550px;
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 45px 0 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-row p {
+      color: #858b99;
+      font-size: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      color: #b5bac5;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 800px) {
+      .navbar { top: 10px; }
+
+      .menu-btn { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        padding: 18px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(8,8,12,.94);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a { padding: 13px 10px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 135px;
+      }
+
+      .visual {
+        min-height: 420px;
+      }
+
+      #hero-3d {
+        min-height: 420px;
+      }
+
+      .section-head { display: block; }
+
+      .section-head p { margin-top: 18px; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      section { padding: 80px 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">THE WEBROS</a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="websites.html">Websites</a>
+      <a href="gbp.html">GBP</a>
+      <a href="social-media.html">Social Media</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero page">
+
+      <div class="hero-content">
+        <div class="eyebrow">Digital Agency • The Webros</div>
+
+        <h1>
+          We build
+          <span class="gradient-text">digital experiences.</span>
+        </h1>
+
+        <p>
+          Modern websites, Google Business Profiles and social media
+          marketing solutions designed to help businesses build a stronger
+          digital presence.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#services">Explore Services</a>
+          <a class="btn btn-secondary" href="contact.html">Let's Talk ↗</a>
+        </div>
+      </div>
+
+      <div class="visual">
+        <div id="hero-3d"></div>
+        <div class="visual-label">THREE.JS EXPERIENCE / 02</div>
+      </div>
+
+    </section>
+
+    <section id="services" class="page">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">What we do</div>
+          <h2>Our services.</h2>
+        </div>
+
+        <p>
+          Everything a growing business needs to create a modern and
+          professional online presence.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <a href="websites.html" class="service-card">
+          <div class="number">01 / WEB DEVELOPMENT</div>
+          <h3>Websites</h3>
+          <p>
+            From essential business websites to animated and high-level
+            digital experiences.
+          </p>
+          <div class="card-arrow">↗</div>
+        </a>
+
+        <a href="gbp.html" class="service-card">
+          <div class="number">02 / LOCAL PRESENCE</div>
+          <h3>Google Listing</h3>
+          <p>
+            Google Business Profile setup for businesses that want to improve
+            their local online presence.
+          </p>
+          <div class="card-arrow">↗</div>
+        </a>
+
+        <a href="social-media.html" class="service-card">
+          <div class="number">03 / SOCIAL GROWTH</div>
+          <h3>Social Media</h3>
+          <p>
+            Instagram and Facebook marketing with daily reels uploading and
+            consistent social presence.
+          </p>
+          <div class="card-arrow">↗</div>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="page">
+
+      <div class="cta">
+        <div class="eyebrow">Start a project</div>
+
+        <h2>
+          Let's build<br>
+          <span class="gradient-text">something great.</span>
+        </h2>
+
+        <p>
+          Have a business that needs a better digital presence?
+          Let's create something modern.
+        </p>
+
+        <a class="btn btn-primary" href="contact.html">
+          Contact The Webros ↗
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="page footer-row">
+
+      <p>© 2026 The Webros. All rights reserved.</p>
+
+      <div class="footer-links">
+        <a href="tel:+919588386782">+91 9588386782</a>
+        <a href="mailto:thewebros12@gmail.com">Email</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Mobile navigation -->
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      menuBtn.textContent =
+        navLinks.classList.contains("open") ? "×" : "☰";
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.textContent = "☰";
+      });
+    });
+  </script>
+
+  <!-- STEP 2: Three.js 3D scene -->
+  <script type="module" src="three-scene.js"></script>
+
+</body>
+</html>
